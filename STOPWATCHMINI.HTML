@@ -1,0 +1,65 @@
+<html>
+<head>
+  <script src="stopwatch.js" type="text/javascript"></script>
+</head>
+	
+<body>
+<span id="mm">00</span>:<span id="ss">00</span>
+<br/>
+<button id="reset">reset</button>
+<button id="start">start</button>
+
+<script>
+window.onload = function(){
+  document.getElementById("reset").onclick = reset;
+  document.getElementById("start").onclick = start;
+};
+
+var timer = null;
+var minutes = 0;
+var seconds = 0;
+ 
+function reset(){
+  //alert("reset");
+  document.getElementById("ss").innerHTML = "00";
+  document.getElementById("mm").innerHTML = "00";
+  minutes = 0;
+  seconds = 0;
+}
+
+function start(){
+  timer = setInterval(update, 100);
+  document.getElementById("reset").disabled = "disabled";
+  document.getElementById("start").innerHTML = "stop";
+  document.getElementById("start").onclick = stop;
+}
+
+function stop(){
+  clearInterval(timer);
+  document.getElementById("reset").disabled = "";
+  document.getElementById("start").innerHTML = "start";
+  document.getElementById("start").onclick = start;
+  //alert("stop");
+}
+
+function update(){
+  seconds++;
+  if (seconds > 59){
+    seconds = 0;
+    minutes++;
+  }
+  if (seconds < 10){
+    document.getElementById("ss").innerHTML = "0"+seconds;
+  }else{
+    document.getElementById("ss").innerHTML = seconds;
+  }
+	
+  if (minutes < 10){
+    document.getElementById("mm").innerHTML = "0"+minutes;
+  }else{
+    document.getElementById("mm").innerHTML = minutes;
+  }
+}
+</script>
+</body>
+</html>
